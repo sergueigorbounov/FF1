@@ -1,89 +1,10 @@
-/*
-import { Component } from '@angular/core';
-import { SimulationService } from '../simulation.service';
-import {NgClass, NgForOf} from "@angular/common";
-export interface Cell {
-  burned?: boolean;
-  burning?: boolean;
-  tree?: boolean;
-}
-@Component({
-  selector: 'app-grid-display',
-  templateUrl: './grid-display.component.html',
-  styleUrl: './grid-display.component.css',
-  standalone: true,
-  imports: [
-    NgClass,
-    NgForOf
-  ],
-  //providers: [SimulationService],
-})
-export class GridDisplayComponent {
-gridState: Cell[][] = [];
-  constructor(public simulationService: SimulationService) {console.log(simulationService);}
-*/
-/*import { Component } from '@angular/core';
-import { SimulationService } from '../simulation.service';
-import {NgClass, NgForOf} from "@angular/common";
-
-interface Cell {
-    burned: any;
-  burning: any;
-  tree: any;
-}
-
-@Component({
-  selector: 'app-grid-display',
-  templateUrl: './grid-display.component.html',
-  styleUrls: ['./grid-display.component.css'],
-  standalone: true,
-  imports: [
-    NgForOf,
-    NgClass
-  ]
-})
-export class GridDisplayComponent {
-  gridState: any[][] | undefined;
-
-  constructor(private simulationService: SimulationService) {}
-
-  startSimulation(): void {
-    this.simulationService.startSimulation().subscribe(data => {
-      this.gridState = data;
-    });
-  }
-
-  stepSimulation(): void {
-    this.simulationService.stepSimulation().subscribe(data => {
-      this.gridState = data;
-    });
-  }
-  getCellClass(cell: Cell): string {
-    if (cell.burned) {
-      return 'cell burned';
-    } else if (cell.burning) {
-      return 'cell burning';
-    } else if (cell.tree) {
-      return 'cell tree';
-    }
-    return 'cell';
-  }
-
-  getCellEmoji(cell: Cell): string {
-    if (cell.tree) {
-      return '🌳';
-    } else if (cell.burning) {
-      return '🔥';
-    }
-    return ''; // Empty string for cells that are neither trees nor burning
-  }
-}*/
 import { Component, OnDestroy } from '@angular/core';
 import { SimulationService } from '../simulation.service';
 import { NgClass, NgForOf } from "@angular/common";
 import { Subscription } from 'rxjs';
 import {HttpClientModule} from "@angular/common/http";
 import {HttpClient} from "@angular/common/http";
+import {RouterOutlet} from "@angular/router";
 
 interface Cell {
   burned: boolean; // Assuming these are boolean types
@@ -99,7 +20,8 @@ interface Cell {
   imports: [
     HttpClientModule,
     NgForOf,
-    NgClass
+    NgClass,
+    RouterOutlet
   ],
   providers: [
     HttpClientModule,

@@ -4,15 +4,15 @@ public class Cell {
     private boolean burning;
     private boolean burned;
     private boolean tree;
-    // Constructor for creating a Cell with only its burning state specified
-    // The burned state defaults to false tree also false
+    // Constructor for creating a Cell with only burning state specified
+    //  burned state defaults to false, tree also false
     public Cell(boolean isBurning) {
         this.burning = isBurning;
         this.burned = false; // Initially, a cell isn't burned.
         this.tree = false;
     }
 
-    // Constructor for creating a Cell with both its burning and burned states specified.
+    // Constructor for creating a Cell
     public Cell(boolean burning, boolean burned, boolean tree) {
         this.burning = burning;
         this.burned = burned;
@@ -40,8 +40,6 @@ public class Cell {
     }
 
     // Sets the cell's burned state
-    // Note: This method could potentially contradict the natural progression of the cell's state
-    // if not used carefully. A cell shouldn't typically be "unburned".
     public void setBurned(boolean burned) {
         this.burned = burned;
     }

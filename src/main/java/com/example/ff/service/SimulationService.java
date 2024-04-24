@@ -12,7 +12,7 @@ public class SimulationService {
 
     private final Grid grid;
     private final Random random = new Random();
-    //private final double spreadProbability;
+
 
     public SimulationService(@Value("${simulation.height}") int height,
                              @Value("${simulation.width}") int width,
@@ -21,7 +21,7 @@ public class SimulationService {
                              @Value("${simulation.positionY}") int positionY,
                              @Value("${simulation.positionX1}") int positionX1,
                              @Value("${simulation.positionY1}") int positionY1) {
-        //this.spreadProbability = spreadProbability;
+
         this.grid = new Grid(height, width, spreadProbability);
         initializeGridWithFire(positionX, positionY, positionX1, positionY1);
     }
@@ -41,10 +41,10 @@ public class SimulationService {
 
             }
         }
-        // Ignite a few cells at random positions as the starting point of the fire
+        // Ignite a few cells at random positions as start
         for (int i = 0; i < grid.getHeight(); i++) {
             for (int j = 0; j < grid.getWidth(); j++) {
-                if (Math.random() < 0.01) { // Let's say 1% chance to start burning
+                if (Math.random() < 0.01) { //  chance to start burning
                     grid.getCell(i, j).setBurning(true);
                 }
             }
@@ -52,8 +52,7 @@ public class SimulationService {
     }
 
     public void simulateStep() {
-        // This method needs to update the burning and burned state of each cell
-        // The provided logic has the basic structure but should correctly handle burning and burned state transitions
+        // method needs to update the burning and burned state of each cell
         spreadFire();
     }
 
@@ -64,7 +63,7 @@ public class SimulationService {
             for (int j = 0; j < grid.getWidth(); j++) {
                 Cell currentCell = grid.getCell(i, j);
                 if (currentCell.isBurning()) {
-                    // Directly setting the cell to burned; ensure logic is correct for your needs
+                    // setting the cell to burned
                     newCells[i][j].setBurning(false);
                     newCells[i][j].setBurned(true);
                     newCells[i][j].setTree(false);
@@ -77,16 +76,6 @@ public class SimulationService {
         grid.setCells(newCells);
     }
 
-    /*    private void spreadFireToAdjacentCells(int x, int y, Cell[][] newCells) {
-            int[] dx = {-1, 1, 0, 0};
-            int[] dy = {0, 0, -1, 1};
-
-            for (int i = 0; i < 4; i++) {
-                int newX = x + dx[i];
-                int newY = y + dy[i];
-                // Add fire spreading logic similar to what's already provided
-            }
-        }*/
     private void spreadFireToAdjacentCells(int x, int y, Cell[][] newCells) {
         int[] dx = {-1, 1, 0, 0};
         int[] dy = {0, 0, -1, 1};
@@ -95,7 +84,7 @@ public class SimulationService {
             int newX = x + dx[i];
             int newY = y + dy[i];
 
-            // Check bounds and only spread fire if the adjacent cell has a tree that is not already burning
+            // Check neighbours and only spread fire if the adjacent cell has a tree that is not already burning
             if (newX >= 0 && newX < grid.getHeight() && newY >= 0 && newY < grid.getWidth()) {
                 Cell adjacentCell = newCells[newX][newY];
                 if (adjacentCell.isTree() && !adjacentCell.isBurning() && Math.random() < grid.getSpreadProbability()) {
@@ -109,7 +98,7 @@ public class SimulationService {
         return grid.getCells();
     }
 
-    // Resets the grid to its initial state with some cells on fire and returns the state
+    // initial state with some cells on fire and returns the state
     public Cell[][] startAndRetrieveGrid(@Value("${simulation.positionX}") int positionX,
                                          @Value("${simulation.positionY}") int positionY,
                                          @Value("${simulation.positionX1}") int positionX1,
