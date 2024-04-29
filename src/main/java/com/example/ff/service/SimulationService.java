@@ -99,10 +99,7 @@ public class SimulationService {
     }
 
     // initial state with some cells on fire and returns the state
-    public Cell[][] startAndRetrieveGrid(@Value("${simulation.positionX}") int positionX,
-                                         @Value("${simulation.positionY}") int positionY,
-                                         @Value("${simulation.positionX1}") int positionX1,
-                                         @Value("${simulation.positionY1}") int positionY1) {
+    public Cell[][] startAndRetrieveGrid(int positionX, int positionY, int positionX1, int positionY1) {
         initializeGridWithFire(positionX, positionY, positionX1, positionY1); // Reinitialize the grid with fire
         return getGridState(); // Return the grid's initial state
     }

@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+
     <title>Forest Fire Simulation 1.0</title>
     <style>
         body {
@@ -56,6 +59,23 @@
 <div id="grid"></div>
 
 <script>
+    const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+    const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+    /*const simulationStartData = {*/
+        /*positionX: initialX,   // hypothetical variables containing initial values
+        positionY: initialY,
+        positionX1: secondaryX,
+        positionY1: secondaryY*/
+    /*};*/
+    /*   fetch('/your-endpoint', {
+           method: 'POST',
+           headers: {
+               'Content-Type': 'application/json',
+               [header]: token
+           },
+           body: JSON.stringify({ /!* your data *!/ })
+       });*/
+
     // Function to update the grid display based on the simulation state
     function updateGridDisplay(gridState) {
         const gridElement = document.getElementById('grid');
@@ -83,7 +103,7 @@
 
     // Add event listeners to the start and step buttons to begin the simulation
     document.getElementById('start-btn').addEventListener('click', function() {
-        fetch('/simulation/start', { method: 'POST' })
+        fetch('/simulation/start', { method: 'GET' })
             .then(response => response.json())
             .then(gridState => {
                 updateGridDisplay(gridState);
